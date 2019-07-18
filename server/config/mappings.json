@@ -1,0 +1,8 @@
+{
+    "postgres-db-credentials": {
+        "searchPatterns": [
+            "cloudfoundry:postgresqldb",
+            "file:/server/config/local-postgres-config.json"
+        ]
+    }
+}

@@ -1,0 +1,222 @@
+openapi: '3.0.0'
+info:
+  title: 'UBP API(s)'
+  version: '1.0.0'
+  description: >-
+    for testing the rest of the API(S). 
+
+paths:
+  "/api/user":
+    post:
+      summary: Register and enroll user to blockchain network
+      tags:
+      - user
+      description: Register and enroll user to blockchain network
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/userEnrollSource"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+                    result:
+                      type: string
+                      example: "user enrolled successfully"
+                    
+        "500":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+    
+    get:
+      summary: Get all users enrolled to fabric network
+      tags:
+      - user
+      description: Get all users enrolled to fabric network
+      responses:
+        default:
+          description: user Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  result:
+                    type: string
+                    example: ""
+  
+  "/api/access-token":
+    post:
+      summary: get access token 
+      tags:
+      - access token
+      description: get access token
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/accessTokenSource"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+                    result:
+                      type: string
+                      example: "xxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    
+        "500":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+
+  "/api/health":
+    get:
+      tags:
+      - Monitor Health
+
+      operationId: monitorHealth
+      summary: Get health status of app
+      description: Get health status of app
+      responses:
+        default:
+          description: Health check response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: "UP"
+                  message:
+                    type: string
+                    example: "Server is up!"
+      
+  "/api/ping":
+    get:
+      summary: Get ping status of fabric network
+      tags:
+      - Test Ping
+      description: Get ping status of fabric network
+      responses:
+        default:
+          description: Ping Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  result:
+                    type: string
+                    example: "{\"status\":\"Success\",\"ts\" : \"Mon Mar 11 12:17:34 UTC 2019\" }"
+      security:
+      - bearerAuth: []
+
+  
+    
+definitions:
+  ErrorResponse:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: "Error message"
+            details:
+              type: object
+              example: {}
+  userEnrollSource:
+    properties:
+        org:
+          type: string
+          example: "org1"
+        user:
+          type: string
+          example: "userid"
+        pw:
+          type: string
+          example: "password"
+        affiliation:
+          type: string
+          example: "org1"
+        role:
+          type: string
+          example: "client"
+        attrs:
+          type: array
+          items:
+            type: object
+            properties:
+              orgType:
+                type: string
+                example: "principal1"
+              userRole:
+                type: string
+                example: "SellerMaker/SellerChecker"
+  accessTokenSource:
+    properties:
+        userId:
+          type: string
+          example: "userId"
+        password:
+          type: string
+          example: "password"
+
+  
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+
+
+  
+
