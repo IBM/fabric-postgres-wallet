@@ -1,0 +1,9 @@
+{
+  "logLevel": "debug",
+  "host": "localhost",
+  "port": "3000",
+  "timeout":20000,
+  "fsWalletPath":"./wallet",
+  "tokenSecret":"pM4px005gmVDW4Cr11KkY6qsW234dsndfmergMkPu9S47pLhzYUjWWTgXl",
+  "tokenExpriryTime":3600
+}

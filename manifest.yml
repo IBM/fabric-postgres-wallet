@@ -1,0 +1,10 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: postgresql-wallet-api
+  buildpack: sdk-for-nodejs
+  command: npm start
+  memory: 512M
+  domain: mybluemix.net
+  host: postgresql-wallet-api

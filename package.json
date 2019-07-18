@@ -1,0 +1,46 @@
+{
+  "name": "postgresql-wallet-api",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Dipeeka Patil <dpatil17@in.ibm.com>",
+  "scripts": {
+    "start": "NODE_CONFIG_DIR=./server/config node server/server.js",
+    "dev": "cross-env NODE_CONFIG_DIR=./server/config nodemon server/server.js",
+    "lint": "eslint .",
+    "lintfix": "eslint --fix .",
+    "test": "NODE_CONFIG_DIR=./server/config nyc mocha --timeout 60000 --exit",
+    "dev-test": "cross-env NODE_CONFIG_DIR=./server/config nyc mocha --timeout 60000 --exit"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "~4.16.0",
+    "fabric-ca-client": "1.4.0",
+    "fabric-client": "1.4.0",
+    "fabric-network": "1.4.0",
+    "ibm-cloud-env": "^0.2.6",
+    "js-yaml": "^3.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "log4js": "^1.1.1",
+    "pg": "^7.9.0",
+    "request-promise": "^4.2.2",
+    "swagger-ui-express": "^3.0.10"
+  },
+  "engines": {
+    "node": "8.11.x",
+    "npm": "5.6.x"
+  },
+  "devDependencies": {
+    "ajv": "^5.0.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cross-env": "^5.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "nyc": "^12.0.2",
+    "sinon": "^7.3.1"
+  }
+}
