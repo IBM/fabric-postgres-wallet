@@ -23,7 +23,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 1. [Get the code](#1-get-the-code)
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
 3. Set up the Hyperledger Fabric Network
-4. Configure Postgre SQL DB
+4. [Set up Postgre SQL DB](#4-set-up-postgresql-db)
 5. Update connection profile and credentials
 6. Run the application
 
@@ -57,6 +57,18 @@ In this step, we will setup the Hyperledger Fabric network using IBM Blockchain 
 
 
 The network should consist of two organizations with single peer each and an orderer service for carrying out all the transactions. For detailed steps, please refer to the [quick start guide](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) for IBM Blockchain Platform.
+
+## 4. Set up PostgreSQL DB
+There are two approaches to set up PostgreSQL DB instance -
+* **IBM PostgreSQL service** - IBM cloud provide PostgreSQL as service, type postgreSQL in catlog search box and create PostgreSQL instance. once service is created, navigate to left menu and create service credentials.
+* **PostgreSQL as container**- PostgreSQL can also be deployed as container. pull postgreSQL docker image from docker hub.
+```
+docker pull postgres:[tag_you_want]
+```
+ start container with appropriate username, password and db name - for example
+```
+docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=postgres -e POSTGRES_DB=walletdb -d -p 5432:5432 -v /postgreSQL-docker/volume:/var/lib/postgresql/data  postgres
+```
 
 
 ## Learn More
