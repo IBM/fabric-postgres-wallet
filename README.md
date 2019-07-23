@@ -39,7 +39,17 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
 **Create IBM Kubernetes Service Instance**
 
+Create a Kubernetes cluster with [Kubernetes Service](https://cloud.ibm.com/containers-kubernetes/catalog/cluster) using IBM Cloud Dashboard.
+
+  ![Kubernetes Service](images/create_kubernetes_service.png)
+
+  > Note: It can take up to 15-20 minutes for the cluster to be set up and provisioned.  
+
 **Create IBM Blockchain Platform Service Instance**
+
+Create [IBM Blockchain Platform Service](https://cloud.ibm.com/catalog/services/blockchain-platform) instance using IBM Cloud Dashboard.
+
+![Blockchain Platform](images/create_IBP_service.png)
 
 ## 3. Setup
 
