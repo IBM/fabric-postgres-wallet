@@ -1,4 +1,4 @@
-### **Work in Progress**
+## ** Work in Progress **
 # Postgre SQL Database as a Fabric Certificate Wallet 
 
 Security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persist certificate in wallet for future usages.
