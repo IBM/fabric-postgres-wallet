@@ -12,28 +12,41 @@ At the end of this code pattern, users will understand - how to use postgre sql 
 # Flow
 
 # Pre-requisites
+
 * [IBM Cloud Account](https://cloud.ibm.com)
 * [Git Client](https://git-scm.com/downloads) - needed for clone commands.
+* [Node js](https://nodejs.org/en/download/) - 8.9 or greator
 
 # Steps
 
 Follow these steps to setup and run this code pattern. The steps are described in detail below.
 1. [Get the code](#1-get-the-code)
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
+3. Set up the Hyperledger Fabric Network
+4. Configure Postgre SQL DB
+5. Update connection profile and credentials
+6. Run the application
 
 
 ## 1. Get the code
 
 - Clone the repo using the below command.
    ```
-   git clone https://github.com/IBM/microservices-using-apiconnect-and-appconnect.git
+   git clone https://github.com/IBM/fabric-postgres-wallet.git
    ```
 
 ## 2. Create IBM Cloud Services
 
+**Create IBM Kubernetes Service Instance**
+
 **Create IBM Blockchain Platform Service Instance**
 
+## 3. Setup
 
+In this step, we will setup the Hyperledger Fabric network using IBM Blockchain Platform. 
+
+
+The network should consist of two organizations with single peer each and an orderer service for carrying out all the transactions. For detailed steps, please refer to the [quick start guide](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) for IBM Blockchain Platform.
 
 
 ## Learn More
