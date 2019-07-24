@@ -70,6 +70,9 @@ docker pull postgres:[tag_you_want]
 docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=postgres -e POSTGRES_DB=walletdb -d -p 5432:5432 -v /postgreSQL-docker/volume:/var/lib/postgresql/data  postgres
 ```
 
+## 5. Update connection profile and credentials
+after setting up fabric network and postgreSQL DB mentioned in step 3 and 4, Please replace ```server/config/connection-profile.json```  and ```server/config/local-postgres-config.json``` with your fabric network connection profile and postgreSQL credentials(in case of IBM cloud postgreSQL service). current postgresconfig contains postgreSQL credentials for dockurized postgreSQL.
+
 
 ## Learn More
 
