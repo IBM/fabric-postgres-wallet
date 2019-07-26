@@ -73,6 +73,9 @@ docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=
 ## 5. Update connection profile and credentials
 after setting up fabric network and postgreSQL DB mentioned in step 3 and 4, Please replace ```server/config/connection-profile.json```  and ```server/config/local-postgres-config.json``` with your fabric network connection profile and postgreSQL credentials(in case of IBM cloud postgreSQL service). current postgresconfig contains postgreSQL credentials for dockurized postgreSQL.
 
+## 6. Run the application
+to run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
+
 
 ## Learn More
 
