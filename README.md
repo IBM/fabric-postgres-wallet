@@ -26,7 +26,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 4. [Set up Postgre SQL DB](#4-set-up-postgresql-db)
 5. Update connection profile and credentials
 6. Run the application
-
+7. API description 
 
 ## 1. Get the code
 
@@ -75,6 +75,21 @@ after setting up fabric network and postgreSQL DB mentioned in step 3 and 4, Ple
 
 ## 6. Run the application
 to run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
+
+## 7. API Description 
+This Fabric postgres wallet provide following apis-
+* POST user api- This apiis  used for registering and enrolling user to blockchain fabric network. once user is registered certificate is stored to Postgre wallet. do following changes to request body in order to register user to blockchain network - 
+org - should be mapped to your network org name. 
+user - user name you wish to register
+pw  - password for user (will be used for authentication of user)
+attrs - this is custom attribute object, where you can add any custom attributes need to be added to certificate and which can be used 
+by chaincode for ACL impelementation.
+
+* GET user api- This api will return all users saved to postgreSQL wallet.
+
+* GET access-token api - This api will return JWT token after validating username and password(which we provided while registering user in above POST user api) in postgreSQL wallet. This token is encoded with user information which will be used to retrive certificate from wallet during invoking transaction on fabric network.
+
+* GET ping api - This api will query fabric network using certificate stored in postgreSQL wallet. To execute this api, provide access token in header for authentication as bearerToken. api will authenticate user based on token and once user is authenticated, it will decode user information (userid , role) from token, then api will retreive user certificate from wallet based on userid(user id used as key to store certificate in wallet). fabric node sdk will use this certificate and connection profile to query/invoke chaincode. in this code pattern , we have installed fabcar chaincode on network, so we are calling  ```queryAllCars``` chaincode function. Please do change this as per your chaincode functions.
 
 
 ## Learn More
