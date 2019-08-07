@@ -11,6 +11,14 @@ At the end of this code pattern, users will understand - how to use postgre sql 
 
 # Flow
 
+![Architecture](images/architecture.png)
+
+1. Hyperledger Fabric network is setup using IBM Blockchain Platform.
+2. Configure and deploy Postgre SQL database in container. 
+3. Deploy the client application using Fabric Node SDK through which user can communicate with blockchain network.
+4. User will register/enroll to the blockchain network as a first step. The generated certificates will be stored in Postgre SQL DB. These certificates will be used to do further transactions with blockchain network.
+
+
 # Pre-requisites
 
 * [IBM Cloud Account](https://cloud.ibm.com)
