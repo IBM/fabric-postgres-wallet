@@ -32,9 +32,10 @@ Follow these steps to setup and run this code pattern. The steps are described i
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
 3. [Setup Hyperledger Fabric Network using IBM Blockchain Platform](#3-setup-hyperledger-fabric-network-using-ibm-blockchain-platform)
 4. [Setup PostgreSQL DB](#4-setup-postgresql-db)
-5. [Update connection profile and PostgreSQL credentials](#5-update-conection-profile-and-postgresql-credentials)
+5. [Update connection profile and PostgreSQL credentials](#5-update-connection-profile-and-postgresql-credentials)
 6. [Run the application](#6-run-the-application)
 7. [API description](#7-api-description)
+
 
 ## 1. Get the code
 
@@ -69,11 +70,13 @@ This pattern can be executed with the sample chaincode [fabcar.go](https://githu
 You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to install and instantiate smart contract.
 
 **Download connection profile**
-Under `Instantiated smart contracts` section, click on the three vertical dots for your smart contract. Click on `Connect with SDK` option. Provide the MSP name and Certificate Authority. Scroll down and click on Download Connection Profile.
+
+* Under `Instantiated smart contracts` section, click on the three vertical dots for your smart contract. Click on `Connect with SDK` option. 
+* Provide the MSP name and Certificate Authority. Scroll down and click on Download Connection Profile.
 
 ![connection-profile](images/download_connection_profile.png)
 
-Rename the downloaded json file as connection-profile.json. It will be used in further steps.
+* Rename the downloaded json file as connection-profile.json. It will be used in further steps.
 
 ## 4. Setup PostgreSQL DB
 
