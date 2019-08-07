@@ -62,7 +62,7 @@ Create [IBM Blockchain Platform Service](https://cloud.ibm.com/catalog/services/
 
 ## 3. Setup Hyperledger Fabric Network using IBM Blockchain Platform
 
-Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to create fabric network using IBM Blockchain Platform. You can decide network components(number of organizations, number of peers in each org etc.) as per your requirement. For example, the blockchain network may consist of two organizations with single peer each and an orderer service for carrying out all the transactions.
+Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to create fabric network using IBM Blockchain Platform. You can decide network components (number of organizations, number of peers in each org etc.) as per your requirement. For example, the blockchain network may consist of two organizations with single peer each and an orderer service for carrying out all the transactions.
 
 **Install and instantiate the smart contract**
 
@@ -72,7 +72,7 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 **Download connection profile**
 
 * Under `Instantiated smart contracts` section, click on the three vertical dots for your smart contract. Click on `Connect with SDK` option. 
-* Provide the MSP name and Certificate Authority. Scroll down and click on Download Connection Profile.
+* Provide the MSP name and Certificate Authority. Scroll down and click on `Download Connection Profile`.
 
 ![connection-profile](images/download_connection_profile.png)
 
@@ -82,7 +82,7 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 
 There are two approaches to set up PostgreSQL DB instance.
 
-* **PostgreSQL as a service on IBM Cloud** - IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catlog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
+* **PostgreSQL as a service on IBM Cloud** - IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
 
 ![PostgreSQL Service](images/postgresql-service.PNG)
 
@@ -103,7 +103,7 @@ docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=
 
 After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
 * replace ```server/config/connection-profile.json``` with your fabric network connection profile
-* replace ```server/config/local-postgres-config.json``` with your postgreSQL credentials (in case of IBM Cloud PostgreSQL service). Current postgresconfig contains postgreSQL credentials for dockurized postgreSQL.
+* replace ```server/config/local-postgres-config.json``` with your postgreSQL credentials (in case of IBM Cloud PostgreSQL service). Current postgresconfig contains postgreSQL credentials for dockerized postgreSQL.
 
 ## 6. Run the application
 
@@ -112,19 +112,19 @@ To run application, first install npm dependencies with cmd ``` npm install```. 
 ## 7. API Description 
 
 This Fabric postgres wallet provide following apis:
-* **POST user api** - This api is  used for registering and enrolling user to blockchain fabric network. once user is registered certificate is stored to Postgre wallet. Need to do the following changes to request body in order to register user to blockchain network:
+* **POST user api** - This api is used for registering and enrolling user to blockchain fabric network. Once user is registered certificate is stored to Postgre wallet. Need to do the following changes to request body in order to register user to blockchain network:
 ```
    org - should be mapped to your network org name. 
    user - user name you wish to register
    pw  - password for user (will be used for authentication of user)
-   attrs - this is custom attribute object, where you can add any custom attributes need to be added to certificate and which can be used by chaincode for ACL impelementation.
+   attrs - this is custom attribute object, where you can add any custom attributes need to be added to certificate and which can be used by chaincode for ACL implementation.
 ```
 
 * **GET user api** - This api will return all users saved to postgreSQL wallet.
 
-* **GET access-token api** - This api will return JWT token after validating username and password(which we provided while registering user in above POST user api) in postgreSQL wallet. This token is encoded with user information which will be used to retrive certificate from wallet during invoking transaction on fabric network.
+* **GET access-token api** - This api will return JWT token after validating username and password (which we provided while registering user in above POST user api) in postgreSQL wallet. This token is encoded with user information which will be used to retrieve certificate from wallet during invoking transaction on fabric network.
 
-* **GET ping api** - This api will query fabric network using certificate stored in postgreSQL wallet. To execute this api, provide access token in header for authentication as bearerToken. The api will authenticate user based on token and once user is authenticated, it will decode user information (userid , role) from token, then api will retreive user certificate from wallet based on userid(user id is used as key to store certificate in wallet). Fabric node sdk will use this certificate and connection profile to query/invoke chaincode. 
+* **GET ping api** - This api will query fabric network using certificate stored in postgreSQL wallet. To execute this api, provide access token in header for authentication as bearerToken. The api will authenticate user based on token and once user is authenticated, it will decode user information (userid, role) from token, then api will retrieve user certificate from wallet based on userid (user id is used as key to store certificate in wallet). Fabric node sdk will use this certificate and connection profile to query/invoke chaincode. 
 
 > Note: In this code pattern, we have installed fabcar chaincode on network, so we are calling  ```queryAllCars``` chaincode function. Please do change this as per your chaincode functions.
 
