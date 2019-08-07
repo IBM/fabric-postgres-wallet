@@ -31,7 +31,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 1. [Get the code](#1-get-the-code)
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
 3. [Setup Hyperledger Fabric Network using IBM Blockchain Platform](#3-setup-hyperledger-fabric-network-using-ibm-blockchain-platform)
-4. [Setup PostgreSQL DB](#4-setup-postgresql-db)(#4-setup-postgresql-db)
+4. [Setup PostgreSQL DB](#4-setup-postgresql-db)
 5. [Update connection profile and PostgreSQL credentials](#5-update-conection-profile-and-postgresql-credentials)
 6. [Run the application](#6-run-the-application)
 7. [API description](#7-api-description)
