@@ -61,9 +61,19 @@ Create [IBM Blockchain Platform Service](https://cloud.ibm.com/catalog/services/
 
 ## 3. Setup Hyperledger Fabric Network using IBM Blockchain Platform
 
-In this step, we will setup the Hyperledger Fabric network using IBM Blockchain Platform. 
+Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to create fabric network using IBM Blockchain Platform. You can decide network components(number of organizations, number of peers in each org etc.) as per your requirement. For example, the blockchain network may consist of two organizations with single peer each and an orderer service for carrying out all the transactions.
 
-Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to create fabric network using IBM Blockchain Platform. You can decide network components(number of organizatins, number of peers in each org etc.) as per your requirement. For example, the blockchain network may consist of two organizations with single peer each and an orderer service for carrying out all the transactions.
+**Install and instantiate the smart contract**
+
+This pattern can be executed with the sample chaincode [fabcar.go](https://github.com/hyperledger/fabric-samples/tree/release-1.4/chaincode/fabcar/go) or else you can install your own chaincode. Instantiate the chaincode after installation.
+You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to install and instantiate smart contract.
+
+**Download connection profile**
+Under `Instantiated smart contracts` section, click on the three vertical dots for your smart contract. Click on `Connect with SDK` option. Provide the MSP name and Certificate Authority. Scroll down and click on Download Connection Profile.
+
+![connection-profile](images/download_connection_profile.png)
+
+Rename the downloaded json file as connection-profile.json. It will be used in further steps.
 
 ## 4. Setup PostgreSQL DB
 
@@ -97,24 +107,30 @@ After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, 
 To run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
 
 ## 7. API Description 
-This Fabric postgres wallet provide following apis-
-* POST user api- This apiis  used for registering and enrolling user to blockchain fabric network. once user is registered certificate is stored to Postgre wallet. do following changes to request body in order to register user to blockchain network - 
-org - should be mapped to your network org name. 
-user - user name you wish to register
-pw  - password for user (will be used for authentication of user)
-attrs - this is custom attribute object, where you can add any custom attributes need to be added to certificate and which can be used 
-by chaincode for ACL impelementation.
 
-* GET user api- This api will return all users saved to postgreSQL wallet.
+This Fabric postgres wallet provide following apis:
+* **POST user api** - This api is  used for registering and enrolling user to blockchain fabric network. once user is registered certificate is stored to Postgre wallet. Need to do the following changes to request body in order to register user to blockchain network:
+```
+   org - should be mapped to your network org name. 
+   user - user name you wish to register
+   pw  - password for user (will be used for authentication of user)
+   attrs - this is custom attribute object, where you can add any custom attributes need to be added to certificate and which can be used by chaincode for ACL impelementation.
+```
 
-* GET access-token api - This api will return JWT token after validating username and password(which we provided while registering user in above POST user api) in postgreSQL wallet. This token is encoded with user information which will be used to retrive certificate from wallet during invoking transaction on fabric network.
+* **GET user api** - This api will return all users saved to postgreSQL wallet.
 
-* GET ping api - This api will query fabric network using certificate stored in postgreSQL wallet. To execute this api, provide access token in header for authentication as bearerToken. api will authenticate user based on token and once user is authenticated, it will decode user information (userid , role) from token, then api will retreive user certificate from wallet based on userid(user id used as key to store certificate in wallet). fabric node sdk will use this certificate and connection profile to query/invoke chaincode. in this code pattern , we have installed fabcar chaincode on network, so we are calling  ```queryAllCars``` chaincode function. Please do change this as per your chaincode functions.
+* **GET access-token api** - This api will return JWT token after validating username and password(which we provided while registering user in above POST user api) in postgreSQL wallet. This token is encoded with user information which will be used to retrive certificate from wallet during invoking transaction on fabric network.
+
+* **GET ping api** - This api will query fabric network using certificate stored in postgreSQL wallet. To execute this api, provide access token in header for authentication as bearerToken. The api will authenticate user based on token and once user is authenticated, it will decode user information (userid , role) from token, then api will retreive user certificate from wallet based on userid(user id is used as key to store certificate in wallet). Fabric node sdk will use this certificate and connection profile to query/invoke chaincode. 
+
+> Note: In this code pattern, we have installed fabcar chaincode on network, so we are calling  ```queryAllCars``` chaincode function. Please do change this as per your chaincode functions.
 
 
 ## Learn More
 
 * [Quick start guide for IBM Blockchain Platform](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/)
+* [PostgreSQL DB](http://www.postgresqltutorial.com/)
+* [Learn more about wallets of Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/wallet.html)
 
 
 <!-- keep this -->
