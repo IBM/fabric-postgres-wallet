@@ -23,18 +23,18 @@ At the end of this code pattern, users will understand - how to use postgre sql 
 
 * [IBM Cloud Account](https://cloud.ibm.com)
 * [Git Client](https://git-scm.com/downloads) - needed for clone commands.
-* [Node js](https://nodejs.org/en/download/) - 8.9 or greator
+* [Node js](https://nodejs.org/en/download/) - 8.9 or greater
 
 # Steps
 
 Follow these steps to setup and run this code pattern. The steps are described in detail below.
 1. [Get the code](#1-get-the-code)
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
-3. Set up the Hyperledger Fabric Network
-4. [Set up Postgre SQL DB](#4-set-up-postgresql-db)
-5. Update connection profile and credentials
-6. Run the application
-7. API description 
+3. [Setup Hyperledger Fabric Network using IBM Blockchain Platform](#3-setup-hyperledger-fabric-network-using-ibm-blockchain-platform)
+4. [Setup PostgreSQL DB](#4-setup-postgresql-db)(#4-setup-postgresql-db)
+5. [Update connection profile and PostgreSQL credentials](#5-update-conection-profile-and-postgresql-credentials)
+6. [Run the application](#6-run-the-application)
+7. [API description](#7-api-description)
 
 ## 1. Get the code
 
@@ -59,30 +59,42 @@ Create [IBM Blockchain Platform Service](https://cloud.ibm.com/catalog/services/
 
 ![Blockchain Platform](images/create_IBP_service.png)
 
-## 3. Setup
+## 3. Setup Hyperledger Fabric Network using IBM Blockchain Platform
 
 In this step, we will setup the Hyperledger Fabric network using IBM Blockchain Platform. 
 
+Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to create fabric network using IBM Blockchain Platform. You can decide network components(number of organizatins, number of peers in each org etc.) as per your requirement. For example, the blockchain network may consist of two organizations with single peer each and an orderer service for carrying out all the transactions.
 
-The network should consist of two organizations with single peer each and an orderer service for carrying out all the transactions. For detailed steps, please refer to the [quick start guide](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) for IBM Blockchain Platform.
+## 4. Setup PostgreSQL DB
 
-## 4. Set up PostgreSQL DB
-There are two approaches to set up PostgreSQL DB instance -
-* **IBM PostgreSQL service** - IBM cloud provide PostgreSQL as service, type postgreSQL in catlog search box and create PostgreSQL instance. once service is created, navigate to left menu and create service credentials.
-* **PostgreSQL as container**- PostgreSQL can also be deployed as container. pull postgreSQL docker image from docker hub.
+There are two approaches to set up PostgreSQL DB instance.
+
+* **PostgreSQL as a service on IBM Cloud** - IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catlog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
+
+![PostgreSQL Service](images/postgresql-service.PNG)
+
+
+* **PostgreSQL as container** - PostgreSQL can also be deployed as container using the following commands. 
+
+pull postgreSQL docker image from docker hub.
 ```
 docker pull postgres:[tag_you_want]
 ```
+
  start container with appropriate username, password and db name - for example
 ```
 docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=postgres -e POSTGRES_DB=walletdb -d -p 5432:5432 -v /postgreSQL-docker/volume:/var/lib/postgresql/data  postgres
 ```
 
-## 5. Update connection profile and credentials
-after setting up fabric network and postgreSQL DB mentioned in step 3 and 4, Please replace ```server/config/connection-profile.json```  and ```server/config/local-postgres-config.json``` with your fabric network connection profile and postgreSQL credentials(in case of IBM cloud postgreSQL service). current postgresconfig contains postgreSQL credentials for dockurized postgreSQL.
+## 5. Update connection profile and PostgreSQL credentials
+
+After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
+* replace ```server/config/connection-profile.json``` with your fabric network connection profile
+* replace ```server/config/local-postgres-config.json``` with your postgreSQL credentials (in case of IBM Cloud PostgreSQL service). Current postgresconfig contains postgreSQL credentials for dockurized postgreSQL.
 
 ## 6. Run the application
-to run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
+
+To run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
 
 ## 7. API Description 
 This Fabric postgres wallet provide following apis-
