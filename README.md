@@ -91,18 +91,13 @@ IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databa
 
 ### PostgreSQL as a Kubernetes container
 
-To Deploy PostgreSQL on Kubernetes we need to follow below steps:
-     * Postgres Docker Image
-     * Config Maps for storing Postgres configurations
-     * Persistent Storage Volume
-     * PostgreSQL Deployment
-     * PostgreSQL Service
+To Deploy PostgreSQL on Kubernetes we need to follow below steps.
 
 > Note: All scripts are available in `scripts` folder for reference. 
 
 * **Postgres Docker Image**
 
-We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
+We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of   providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
 
 * **Config Maps for PostgreSQL Configurations**
 
@@ -153,23 +148,23 @@ $ kubectl create -f postgres-service.yaml
 service "postgres" created
 ```
 
-**Prepare connection string for Postgres DB**
+* **Prepare connection string for Postgres DB**
 
-*Get port of Postgre*
+   * *Get port of Postgre*
 
-*Get the public IP for Kubernetes Cluster*
+   * *Get the public IP for Kubernetes Cluster*
  
- Once cluster is up and running then find out the public IP of your cluster. It will be required for further steps.
+       Once cluster is up and running then find out the public IP of your cluster. It will be required for further steps.
 
-  * Go to `IBM Cloud Dashboard -> Kubernetes Cluster -> <your cluster>`. It gives you details of the cluster.
+        a) Go to `IBM Cloud Dashboard -> Kubernetes Cluster -> <your cluster>`. It gives you details of the cluster.
 
-  * Access `Worker Nodes` tab, it will show you the public IP of your cluster as shown in below screenshot.
+        b) Access `Worker Nodes` tab, it will show you the public IP of your cluster as shown in below screenshot.
 
-    ![](images/worker-nodes.png)
-  
-   Make a note of this public IP.
+          ![](images/worker-nodes.png)
+
+         Make a note of this public IP.
  
-*Connection string of PostgresDB*
+   * *Connection string of PostgresDB*
 
    
 ## 5. Update connection profile and PostgreSQL credentials
