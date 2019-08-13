@@ -99,6 +99,8 @@ You can provision the Kubernetes cluster on any public cloud provider like AWS, 
      * PostgreSQL Deployment
      * PostgreSQL Service
 
+Note -all scripts are available in scripts folder for reference. 
+
 * Postgres Docker Image -
 We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
 
