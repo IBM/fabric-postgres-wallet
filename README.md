@@ -238,6 +238,19 @@ Create Postgres Service
 $ kubectl create -f postgres-service.yaml 
 service "postgres" created
 ```
+
+**Get the public IP for Kubernetes Cluster**
+ 
+ Once cluster is up and running then find out the public IP of your cluster. It will be required for further steps.
+
+  * Go to `IBM Cloud Dashboard -> Kubernetes Cluster -> <your cluster>`. It gives you details of the cluster.
+
+  * Access `Worker Nodes` tab, it will show you the public IP of your cluster as shown in below screenshot.
+
+    ![](images/worker-nodes.png)
+  
+   Make a note of this public IP. It will be used in further steps.
+   
 ## 5. Update connection profile and PostgreSQL credentials
 
 After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
