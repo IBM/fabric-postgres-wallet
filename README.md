@@ -87,18 +87,155 @@ There are two approaches to set up PostgreSQL DB instance.
 ![PostgreSQL Service](images/postgresql-service.PNG)
 
 
-* **PostgreSQL as container** - PostgreSQL can also be deployed as container using the following commands. 
+* **PostgreSQL as Kubernetes container** - PostgreSQL can be hosted on Kubernetes as docker container. 
+   - Prerequisites -
+      * Working Kubernetes Cluster
+      * Basic understanding of Docker
+You can provision the Kubernetes cluster on any public cloud provider like AWS, Azure or Google cloud, etc. Refer Kubernetes cluster installation and configuration steps for CentOS [here](https://www.techrepublic.com/article/how-to-install-a-kubernetes-cluster-on-centos-7/)
+   - To Deploy PostgreSQL on Kubernetes we need to follow below steps:
+     * Postgres Docker Image
+     * Config Maps for storing Postgres configurations
+     * Persistent Storage Volume
+     * PostgreSQL Deployment
+     * PostgreSQL Service
 
-pull postgreSQL docker image from docker hub.
+* Postgres Docker Image -
+We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
+
+* Config Maps for PostgreSQL Configurations -
+We will be using config maps for storing PostgreSQL related information. Here, we are using the database, user and password in the config map which will be used by the PostgreSQL pod in the deployment template.
+
+File: postgres-configmap.yaml
 ```
-docker pull postgres:[tag_you_want]
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: postgresdb
+  POSTGRES_USER: postgresadmin
+  POSTGRES_PASSWORD: admin123
+
+```
+Create Postgres config maps resource -
+```
+$ kubectl create -f postgres-configmap.yaml 
+configmap "postgres-config" created
+
 ```
 
- start container with appropriate username, password and db name - for example
+* Persistent Storage Volume -
+To save the data, we will be using Persistent volumes and persistent volume claim resource within Kubernetes to store the data on persistent storages.
+
+Here, we are using local directory/path as Persistent storage resource (/mnt/data)
+
+File: postgres-storage.yaml
+
 ```
-docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -e POSTGRES_USER=postgres -e POSTGRES_DB=walletdb -d -p 5432:5432 -v /postgreSQL-docker/volume:/var/lib/postgresql/data  postgres
+kind: PersistentVolume
+
+apiVersion: v1
+
+metadata:
+  name: postgres-pv-volume
+  labels:
+    type: local
+    app: postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---    
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-pv-claim
+  labels:
+    app: postgres
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+      
+```
+Create storage related deployments
+
+```
+$ kubectl create -f postgres-storage.yaml 
+persistentvolume "postgres-pv-volume" created
+persistentvolumeclaim "postgres-pv-claim" created
 ```
 
+* PostgreSQL Deployment -
+PostgreSQL manifest for deployment of PostgreSQL container uses PostgreSQL latest(or higher version 10.4) image. It is using PostgreSQL configuration like username, password, database name from the configmap that we created earlier. It also mounts the volume created from the persistent volumes and claims to make PostgreSQL container’s data persists.
+File: postgres-deployment.yaml 
+
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+```
+Create Postgres deployment
+```
+$ kubectl create -f postgres-deployment.yaml 
+deployment "postgres" created
+```
+
+* PostgreSQL Service -
+To access the deployment or container, we need to expose PostgreSQL service. Kubernetes provides different type of services like ClusterIP, NodePort and LoadBalancer.
+File: postgres-service.yaml
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  type: NodePort
+  ports:
+   - port: 5432
+  selector:
+   app: postgres
+```
+Create Postgres Service
+```
+$ kubectl create -f postgres-service.yaml 
+service "postgres" created
+```
 ## 5. Update connection profile and PostgreSQL credentials
 
 After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
