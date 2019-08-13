@@ -80,50 +80,50 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 
 ## 4. Setup PostgreSQL DB
 
-There are two approaches to set up PostgreSQL DB instance.
+There are two approaches to set up PostgreSQL DB instance. Follow any one of those.
 
-* **PostgreSQL as a service on IBM Cloud** - IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
+### PostgreSQL as a service on IBM Cloud 
+
+IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
 
 ![PostgreSQL Service](images/postgresql-service.PNG)
 
 
-* **PostgreSQL as Kubernetes container** - PostgreSQL can be hosted on Kubernetes as docker container. 
-   - Prerequisites -
-      * Working Kubernetes Cluster
-      * Basic understanding of Docker
-You can provision the Kubernetes cluster on any public cloud provider like AWS, Azure or Google cloud, etc. Refer Kubernetes cluster installation and configuration steps for CentOS [here](https://www.techrepublic.com/article/how-to-install-a-kubernetes-cluster-on-centos-7/)
-   - To Deploy PostgreSQL on Kubernetes we need to follow below steps:
+### PostgreSQL as a Kubernetes container
+
+To Deploy PostgreSQL on Kubernetes we need to follow below steps:
      * Postgres Docker Image
      * Config Maps for storing Postgres configurations
      * Persistent Storage Volume
      * PostgreSQL Deployment
      * PostgreSQL Service
 
-Note -all scripts are available in scripts folder for reference. 
+> Note: All scripts are available in `scripts` folder for reference. 
 
-* Postgres Docker Image -
+* **Postgres Docker Image**
+
 We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
 
-* Config Maps for PostgreSQL Configurations -
-We will be using config maps for storing PostgreSQL related information. Here, we are using the database, user and password in the config map which will be used by the PostgreSQL pod in the deployment template.
+* **Config Maps for PostgreSQL Configurations**
 
-File: [postgres-configmap.yaml](fabric-postgres-wallet/blob/master/scripts/postgres-configmap.yaml)
+We will be using config maps for storing PostgreSQL related information. Here, we are using the database, username and password in the config map which will be used by the PostgreSQL pod in the deployment template.
 
-Create Postgres config maps resource -
+Create Postgres config maps resource as shown.
+
 ```
+$ cd scripts
 $ kubectl create -f postgres-configmap.yaml 
 configmap "postgres-config" created
 
 ```
 
-* Persistent Storage Volume -
+* **Persistent Storage Volume**
+
 To save the data, we will be using Persistent volumes and persistent volume claim resource within Kubernetes to store the data on persistent storages.
 
-Here, we are using local directory/path as Persistent storage resource (/mnt/data)
+Here, we are using local directory/path as Persistent storage resource `/mnt/data`
 
-File: [postgres-storage.yaml](fabric-postgres-wallet/blob/master/scripts/postgres-storage.yaml)
-
-Create storage related deployments
+Create storage related deployments as shown.
 
 ```
 $ kubectl create -f postgres-storage.yaml 
@@ -131,29 +131,33 @@ persistentvolume "postgres-pv-volume" created
 persistentvolumeclaim "postgres-pv-claim" created
 ```
 
-* PostgreSQL Deployment -
+* **PostgreSQL Deployment**
+
 PostgreSQL manifest for deployment of PostgreSQL container uses PostgreSQL latest(or higher version 10.4) image. It is using PostgreSQL configuration like username, password, database name from the configmap that we created earlier. It also mounts the volume created from the persistent volumes and claims to make PostgreSQL container’s data persists.
 
-File: [postgres-deployment.yaml](fabric-postgres-wallet/blob/master/scripts/postgres-deployment.yaml) 
+Create Postgres deployment using the below steps.
 
-Create Postgres deployment
 ```
 $ kubectl create -f postgres-deployment.yaml 
 deployment "postgres" created
 ```
 
-* PostgreSQL Service -
+* **PostgreSQL Service**
+
 To access the deployment or container, we need to expose PostgreSQL service. Kubernetes provides different type of services like ClusterIP, NodePort and LoadBalancer.
 
-File: [postgres-service.yaml](fabric-postgres-wallet/blob/master/scripts/postgres-service.yaml)
+Create Postgres Service using the following step.
 
-Create Postgres Service
 ```
 $ kubectl create -f postgres-service.yaml 
 service "postgres" created
 ```
 
-**Get the public IP for Kubernetes Cluster**
+**Prepare connection string for Postgres DB**
+
+*Get port of Postgre*
+
+*Get the public IP for Kubernetes Cluster*
  
  Once cluster is up and running then find out the public IP of your cluster. It will be required for further steps.
 
@@ -163,17 +167,39 @@ service "postgres" created
 
     ![](images/worker-nodes.png)
   
-   Make a note of this public IP. It will be used in further steps.
+   Make a note of this public IP.
+ 
+*Connection string of PostgresDB*
+
    
 ## 5. Update connection profile and PostgreSQL credentials
 
 After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
-* replace ```server/config/connection-profile.json``` with your fabric network connection profile
+* replace ```server/config/connection-profile.json``` with your fabric network connection profile which was downloaded in `step 3`.
 * replace ```server/config/local-postgres-config.json``` with your postgreSQL credentials (in case of IBM Cloud PostgreSQL service). Current postgresconfig contains postgreSQL credentials for dockerized postgreSQL.
 
 ## 6. Run the application
 
-To run application, first install npm dependencies with cmd ``` npm install```. after installing all dependencies successfully, run app with following cmd ```npm start```. server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger. 
+**Deploy node app locally**
+
+To run application, first install npm dependencies and run the application.
+
+   ``` 
+   npm install
+   npm start
+   ```
+The server will start running, visit [localhost:3000](http://localhost:3000/) for api swagger.
+
+**Deploy node app on IBM Cloud**
+
+Deploy the application to IBM Cloud using the command:
+
+  ```
+  ibmcloud cf push
+  ```
+Deployment might take a few minutes to complete. Ensure that there are no errors while deploying the application.
+ 
+Login to `IBM Cloud`. On the `Dashboard`, verify that app is running fine. Click on the web application entry. When application page opens, click on `Visit App URL` for api swagger.
 
 ## 7. API Description 
 
