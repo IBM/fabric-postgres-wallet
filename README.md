@@ -199,7 +199,7 @@ Login to `IBM Cloud`. On the `Dashboard`, verify that app is running fine. Click
 ## 7. API Description 
 after running application, we can see swagger like below-
 
-![swagger](images/swagger.png)
+![swagger](images/swagger.PNG)
 
 This Fabric postgres wallet provide following apis:
 * **POST user api** - This api is used for registering and enrolling user to blockchain fabric network. Once user is registered certificate is stored to Postgre wallet. Need to do the following changes to request body in order to register user to blockchain network:
