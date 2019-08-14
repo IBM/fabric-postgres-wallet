@@ -1,6 +1,6 @@
 openapi: '3.0.0'
 info:
-  title: 'UBP API(s)'
+  title: 'PostgreSQL wallet API(s)'
   version: '1.0.0'
   description: >-
     for testing the rest of the API(S). 
