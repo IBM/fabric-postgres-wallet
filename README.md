@@ -156,7 +156,7 @@ service "postgres" created
 
 * **Get Credentials for Postgres DB**
 
-   * *Get port of Postgre*
+   * ***Get port of Postgre***
    
       To get port number, run command as:
       
@@ -167,19 +167,19 @@ service "postgres" created
       ```
       Here, 31070 is external port number for postgreSQL service running on kubernetes cluster.
 
-   * *Get the public IP for Kubernetes Cluster*
+   * ***Get the public IP for Kubernetes Cluster***
  
        Once cluster is up and running then find out the public IP of your cluster. It will be required for further steps.
 
         a) Go to `IBM Cloud Dashboard -> Kubernetes Cluster -> <your cluster>`. It gives you details of the cluster.
 
         b) Access `Worker Nodes` tab, it will show you the public IP of your cluster as shown in below screenshot.
-
-          ![](images/worker-nodes.png)
-
-         Make a note of this public IP.
+        
+        ![](images/worker-nodes.png)
+        
+        Make a note of this public IP.
  
-   * *Credentials of PostgresDB*
+   * ***Credentials of PostgresDB***
    
    This port number and cluster public ip will be used further in `step 5`.
 
