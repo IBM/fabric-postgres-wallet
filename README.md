@@ -1,5 +1,5 @@
 ## ** Work in Progress **
-# Postgre SQL Database as a Fabric Certificate Wallet 
+# Postgre SQL Database as a Fabric Wallet 
 
 Security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persist certificate in wallet for future usages.
 
@@ -84,10 +84,16 @@ There are two approaches to set up PostgreSQL DB instance. Follow any one of tho
 
 ### PostgreSQL as a service on IBM Cloud 
 
-IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance. Once service is created, navigate to left menu and create service credentials.
+IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance.
 
 ![PostgreSQL Service](images/postgresql-service.PNG)
 
+
+Once service is created, navigate to left menu and create service credentials.
+
+![](images/postgresql_cloud.PNG)
+
+DB credentials will be used further in `step 5`.
 
 ### PostgreSQL as a Kubernetes container
 
@@ -148,9 +154,18 @@ $ kubectl create -f postgres-service.yaml
 service "postgres" created
 ```
 
-* **Prepare connection string for Postgres DB**
+* **Get Credentials for Postgres DB**
 
    * *Get port of Postgre*
+   
+      To get port number, run command as:
+      
+      ```
+      $ kubectl get svc postgres
+      NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+      postgres   NodePort   *.**7.*1.*53   <none>        5432:31070/TCP   5m
+      ```
+      Here, 31070 is external port number for postgreSQL service running on kubernetes cluster.
 
    * *Get the public IP for Kubernetes Cluster*
  
@@ -164,26 +179,19 @@ service "postgres" created
 
          Make a note of this public IP.
  
-   * *Connection string of PostgresDB*
+   * *Credentials of PostgresDB*
+   
+   This port number and cluster public ip will be used further in `step 5`.
 
    
 ## 5. Update connection profile and PostgreSQL credentials
 
-After setting up fabric network and postgreSQL DB as mentioned in step 3 and 4, perform the following steps:
-* replace ```server/config/connection-profile.json``` with your fabric network connection profile which was downloaded in `step 3`.
-* replace ```server/config/local-postgres-config.json``` with your postgreSQL credentials (in case of IBM Cloud PostgreSQL service). 
-  ![](images/postgresql_cloud.PNG)
+After setting up fabric network and PostgreSQL DB as mentioned above, perform the following steps:
 
-Current postgresconfig contains postgreSQL credentials for dockerized postgreSQL.replace public_ip with your public cluster IP noted from above step. 
+* Replace ```server/config/connection-profile.json``` with your fabric network connection profile which was downloaded in `step 3`.
 
-To get port number 
-```
-$ kubectl get svc postgres
-NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-postgres   NodePort   *.**7.*1.*53   <none>        5432:31070/TCP   5m
-```
-31070 is external port number for postgreSQL service running on kubernetes cluster. Replace your port number and cluster ip in ```server/config/local-postgres-config.json```
-
+* Replace your postgreSQL credentials in ```server/config/local-postgres-config.json```. In case of containerised Postgres DB replace IP and port in this json file. And in case of IBM Cloud PostgreSQL service copy your postgreSQL credentials in this json file.
+  
 ## 6. Run the application
 
 **Deploy node app locally**
