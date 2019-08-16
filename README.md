@@ -76,7 +76,7 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 
 ![connection-profile](images/download_connection_profile.png)
 
-* Rename the downloaded json file as connection-profile.json. It will be used in further steps.
+* Rename the downloaded json file as `connection-profile.json`. It will be used in further steps.
 
 ## 4. Setup PostgreSQL DB
 
