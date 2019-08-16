@@ -6,7 +6,7 @@ Postgre SQL Database as a Fabric Certificate Wallet
 
 # Long Title
 
-Demonstrate the use of Postgre SQL Database as a Fabric Certificate Wallet
+Demonstrate the use of Postgre SQL Database as a Fabric Certificate Wallet using Fabric Node SDK
 
 
 # Author
