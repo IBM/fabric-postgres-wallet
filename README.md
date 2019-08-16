@@ -91,7 +91,7 @@ IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databa
 
 ### PostgreSQL as a Kubernetes container
 
-To Deploy PostgreSQL on Kubernetes we need to follow below steps.
+To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` commands properly and then follow below steps.
 
 > Note: All scripts are available in `scripts` folder for reference. 
 
