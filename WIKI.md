@@ -12,8 +12,8 @@ Demonstrate the methodology to use Postgre SQL Database as a Fabric Wallet using
 # Author
 
 
+* [Dipeeka Patil](https://www.linkedin.com/in/dipeekapatil) 
 * [Shikha Maheshwari](https://www.linkedin.com/in/shikha-maheshwari) 
-* [Dipeeka Patil]() 
 
 
 # URLs
@@ -82,7 +82,7 @@ The steps will show you how to:
 
 * [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/): Hyperledger Fabric is a platform for distributed ledger solutions underpinned by a modular architecture delivering high degrees of confidentiality, resiliency, flexibility and scalability.
 
-* [Postgre SQL DB](https://www.postgresql.org/)
+* [Postgre SQL DB](https://www.postgresql.org/): PostgreSQL is a powerful, open source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/containers-kubernetes/catalog/cluster): IBM Kubernetes Service enables the orchestration of intelligent scheduling, self-healing, and horizontal scaling.
 
@@ -100,6 +100,10 @@ The steps will show you how to:
 
 # Related links
 
+* [Fabric Node SDK](https://fabric-sdk-node.github.io/release-1.4/module-fabric-network.html)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Hyperledger fabric network wallet](https://hyperledger-fabric.readthedocs.io/en/release-1.4/developapps/wallet.html)
+* [PostgreSQL Deploy on kubernetes](https://severalnines.com/blog/using-kubernetes-deploy-postgresql)
 
 
 # Announcement
