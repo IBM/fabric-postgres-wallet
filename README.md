@@ -1,4 +1,4 @@
-## ** Work in Progress **
+
 # Postgre SQL Database as a Fabric Wallet 
 
 Security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persist certificate in wallet for future usages.
@@ -154,7 +154,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
    service "postgres" created
    ```
 
-* **Get Credentials for Postgres DB**
+* **Get Credentials/Connection Details for Postgres DB**
 
    * ***Get port of Postgre***
    
@@ -179,9 +179,9 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
         
         Make a note of this public IP.
  
-   * ***Credentials of PostgresDB***
+   * ***Connection details of PostgresDB***
    
-   This port number and cluster public ip will be used further in `step 5`.
+      This port number and cluster public ip will be used as db connection details further in `step 5`.
 
    
 ## 5. Update connection profile and PostgreSQL credentials
