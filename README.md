@@ -66,7 +66,7 @@ Follow this [tutorial](https://developer.ibm.com/tutorials/quick-start-guide-for
 
 **Install and instantiate the smart contract**
 
-This pattern can be executed with the sample chaincode [fabcar.go](https://github.com/hyperledger/fabric-samples/tree/release-1.4/chaincode/fabcar/go) or else you can install your own chaincode. Instantiate the chaincode after installation.
+This code pattern can be executed with the sample chaincode [fabcar.go](https://github.com/hyperledger/fabric-samples/tree/release-1.4/chaincode/fabcar/go) or else you can install your own chaincode. Instantiate the chaincode after installation.
 You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/quick-start-guide-for-ibm-blockchain-platform/) to install and instantiate smart contract.
 
 **Download connection profile**
@@ -82,7 +82,7 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 
 There are two approaches to set up PostgreSQL DB instance. Follow any one of those.
 
-### PostgreSQL as a service on IBM Cloud 
+### Option 1 - PostgreSQL as a service on IBM Cloud 
 
 IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance.
 
@@ -95,7 +95,7 @@ Once service is created, navigate to left menu and create service credentials.
 
 DB credentials will be used further in `step 5`.
 
-### PostgreSQL as a Kubernetes container
+### Option 2 - PostgreSQL as a Kubernetes container
 
 To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` commands properly and then follow below steps.
 
