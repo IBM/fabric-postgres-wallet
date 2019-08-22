@@ -190,7 +190,7 @@ After setting up fabric network and PostgreSQL DB as mentioned above, perform th
 
 * Replace ```server/config/connection-profile.json``` with your fabric network connection profile which was downloaded in `step 3`.
 
-* Replace your PostgreSQL credentials in ```server/config/local-postgres-config.json```. In case of containerised Postgres DB, replace IP and port in this json file. And in case of IBM Cloud PostgreSQL service, replace the json file content with your PostgreSQL credentials.
+* Replace your PostgreSQL credentials in ```server/config/postgres-config.json```. In case of containerised Postgres DB, replace IP and port in this json file. And in case of IBM Cloud PostgreSQL service, replace the json file content with your PostgreSQL credentials.
   
 ## 6. Run the application
 

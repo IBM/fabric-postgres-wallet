@@ -1,0 +1,3 @@
+{
+    "connection":"postgres://postgresadmin:admin123@public_ip:32608/postgresdb"
+}
