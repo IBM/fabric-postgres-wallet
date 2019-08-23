@@ -154,7 +154,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
    service "postgres" created
    ```
 
-* **Get Credentials/Connection Details for Postgres DB**
+* **Get Connection Details for Postgres DB**
 
    * ***Get port of Postgre***
    
