@@ -238,7 +238,11 @@ This Fabric postgres wallet provide following APIs:
 
 * **GET monitor health API** - This API checks the health of deployed node application.
 
-* **GET ping API** - This API will query fabric network using certificate stored in PostgreSQL wallet. To execute this api, you need to authorize first using the `Authorize` button provided in top-right corner. Provide the access-token for authentication as bearerToken. The api will authenticate user based on token and once user is authenticated, it will decode user information (userid, role) from token, then api will retrieve user certificate from wallet based on userid (user id is used as key to store certificate in wallet). Fabric SDK for Node.js will use this certificate and connection profile to query/invoke chaincode. 
+* **GET ping API** - This API will query fabric network using certificate stored in PostgreSQL wallet. To execute this api, you need to authorize first using the `Authorize` button provided in top-right corner. 
+
+   ![authorize](images/authorize-button.PNG)
+
+   Click on the `Authorize` button and provide the access-token for authentication as bearerToken copied from the output of `Access-token API`. The api will authenticate user based on token and once user is authenticated, it will decode user  information (userid, role) from token, then api will retrieve user certificate from wallet based on userid (user id is used as   key to store certificate in wallet). Fabric SDK for Node.js will use this certificate and connection profile to query/invoke chaincode. 
 
 > Note: In this code pattern, we have installed fabcar chaincode on network, so we are calling  ```queryAllCars``` chaincode function. Please do change this as per your chaincode functions.
 
