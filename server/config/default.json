@@ -4,6 +4,6 @@
   "port": "3000",
   "timeout":20000,
   "fsWalletPath":"./wallet",
-  "tokenSecret":"pM4px005gmVDW4Cr11KkY6qsW234dsndfmergMkPu9S47pLhzYUjWWTgXl",
+  "tokenSecret":"******",
   "tokenExpriryTime":3600
 }
