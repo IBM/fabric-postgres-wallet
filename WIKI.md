@@ -1,12 +1,12 @@
 # Short Title
 
-Postgre SQL Database as a Fabric Wallet
+Demonstrate the methodology to use Postgre SQL Database as a Fabric Wallet using Fabric Node SDK
 
 
 
 # Long Title
 
-Demonstrate the methodology to use Postgre SQL Database as a Fabric Wallet using Fabric Node SDK
+Setup PostgreSQL containerized using Kubernetes and configure as Hyperledger Fabric Wallet
 
 
 # Author
@@ -31,7 +31,7 @@ NA
 
 # Summary
 
-The Hyperledger Fabric SDK for Node.js provides a powerful API to interact with a Hyperledger Fabric blockchain. It provides default file-system wallet for storing fabric certificate and also provides a way to store certificates in Couch DB but not in Postgres. Explore this pattern further to understand how to use Postgres DB as Fabric wallet.
+Hyperledger Fabric uses appropriate enrollment certificates while interacting with the blockchain network. The Hyperledger Fabric SDK for Node.js provides APIs to interact with a Hyperledger Fabric blockchain. Fabric Node SDK provides default file-system wallet for storing fabric certificate. File system wallet stores user certificate in folders. This approach does not provide required security, flexibility and also impacts scalability. Explore this pattern further to understand how to use PostgreSQL DB as Fabric wallet.
 
 # Technologies
 
@@ -59,9 +59,9 @@ In this code pattern we use IBM Blockchain Platform to setup the fabric network,
 
 
 * Hyperledger Fabric network is setup using IBM Blockchain Platform.
-* Configure and deploy Postgre SQL database in container.
+* Configure and deploy containerised Postgre SQL database using Kubernetes.
 * Deploy the client application using Fabric SDK for Node.js through which user can communicate with blockchain network.
-* User will register/enroll to the blockchain network as a first step. The generated certificates will be stored in Postgre SQL DB. These certificates will be used to do further transactions with blockchain network.
+* To comunicate with blockchain network, users need to register and enroll with the network which will generate enrollment certificates and store in PostgreSQL DB. These certificates will be used further for communication with the network.
 
 
 # Instructions
