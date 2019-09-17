@@ -1,22 +1,22 @@
 
-# Postgre SQL Database as a Fabric Wallet 
+# Use a PostgreSQL database as a Hyperledger Fabric wallet using Fabric Node SDK
 
-Security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persists certificate in wallet for future usages.
+Hyperledger Fabric is one of the blockchain projects within Hyperledger. It is private and permissioned; security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persists certificate in wallet for future usages.
 
-There are four different types of wallet: File system, In-memory, Hardware Security Module (HSM) and CouchDB. Fabric SDK for Node.js provides default file-system wallet for storing fabric certificate. File system wallet stores user certificate in folders. Fabric Node SDK also provides a way to configure wallet in Couch DB.
+There are four types of wallets: file system, in-memory, hardware security module, and CouchDB. The Hyperledger Fabric SDK for Node.js provides a default file-system wallet for storing Fabric certificates, storing users’ certificates in folders. The Hyperledger Fabric SDK also provides a way to configure a wallet in CouchDB.
 
-But what if an user wants to use Postgres DB instead of Couch DB? There is no direct provision to store enrolment certificates to Postgres database. Postgres database support SQL and NoSQL data storing and has strong community support. This pattern demonstrates a methodology to use Postgre SQL DB as wallet using Fabric SDK for Node.js.
+But what if an user wants to use PostgreSQL database instead of CouchDB? There is no direct provision to store enrolment certificates to PostgreSQL database. The PostgreSQL database support SQL and NoSQL data storing and has strong community support. This pattern demonstrates a methodology to use PostgreSQL database as wallet using Fabric SDK for Node.js.
 
-At the end of this code pattern, users will understand - how to use postgre sql db as a fabric certificate wallet using node js SDK.
+At the end of this code pattern, users will understand - how to configure a containerized PostgreSQL database as a Fabric certificate wallet using Fabric Node js SDK.
 
 # Flow
 
 ![Architecture](images/architecture.png)
 
 1. Hyperledger Fabric network is setup using IBM Blockchain Platform.
-2. Configure and deploy Postgre SQL database in container. 
+2. Configure and deploy a containerized PostgreSQL database using Kubernetes. 
 3. Deploy the client application using Fabric Node SDK through which user can communicate with blockchain network.
-4. User will register/enroll to the blockchain network as a first step. The generated certificates will be stored in Postgre SQL DB. These certificates will be used to do further transactions with the blockchain network.
+4. To communicate with the blockchain network, users need to register and enroll with the network which will generate the enrollment certificates and store them in a PostgreSQL database. These certificates will be used for further communication with the network.
 
 
 # Pre-requisites
@@ -31,7 +31,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 1. [Get the code](#1-get-the-code)
 2. [Create IBM Cloud Services](#2-create-ibm-cloud-services)
 3. [Setup Hyperledger Fabric Network using IBM Blockchain Platform](#3-setup-hyperledger-fabric-network-using-ibm-blockchain-platform)
-4. [Setup PostgreSQL DB](#4-setup-postgresql-db)
+4. [Setup PostgreSQL Database](#4-setup-postgresql-database)
 5. [Update connection profile and PostgreSQL credentials](#5-update-connection-profile-and-postgresql-credentials)
 6. [Run the application](#6-run-the-application)
 7. [API description](#7-api-description)
@@ -78,13 +78,13 @@ You can refer to step 12 to step 14 [here](https://developer.ibm.com/tutorials/q
 
 * Rename the downloaded json file as `connection-profile.json`. It will be used in further steps.
 
-## 4. Setup PostgreSQL DB
+## 4. Setup PostgreSQL Database
 
 There are two approaches to set up PostgreSQL DB instance. Follow any one of those.
 
 ### Option 1 - PostgreSQL as a service on IBM Cloud 
 
-IBM Cloud provides [PostgreSQL DB](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type postgreSQL in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance.
+IBM Cloud provides [PostgreSQL Database](https://cloud.ibm.com/catalog/services/databases-for-postgresql) as a service. Type `PostgreSQL` in catalog search box on IBM Cloud Dashboard and create PostgreSQL instance.
 
 ![PostgreSQL Service](images/postgresql-service.PNG)
 
@@ -93,15 +93,15 @@ Once service is created, navigate to left menu and create service credentials.
 
 ![](images/postgresql_cloud.PNG)
 
-DB credentials will be used further in `step 5`.
+The database credentials will be used further in `step 5`.
 
-### Option 2 - PostgreSQL as a Kubernetes container
+### Option 2 - Containerized PostgreSQL database
 
-To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` commands properly and then follow below steps.
+To deploy PostgreSQL database on Kubernetes, ensure you are able to run `kubectl` commands properly and then follow below steps.
 
 > Note: All scripts are available in `scripts` folder for reference. 
 
-* **Postgres Docker Image**
+* **PostgreSQL Docker Image**
 
    We are using PostgreSQL latest Docker image from the public registry. This image will provide the functionality of   providing custom configurations/environment variables of PostgreSQL like username, password, database name and path, etc.
 
@@ -109,7 +109,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
 
    We will be using config maps for storing PostgreSQL related information. Here, we are using the database, username and password in the config map which will be used by the PostgreSQL pod in the deployment template.
 
-   Create Postgres config maps resource as shown.
+   Create PostgreSQL config maps resource as shown.
 
    ```
    $ cd scripts
@@ -136,7 +136,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
 
    PostgreSQL manifest for deployment of PostgreSQL container uses PostgreSQL latest(or higher version 10.4) image. It is using PostgreSQL configuration like username, password, database name from the configmap that we created earlier. It also mounts the volume created from the persistent volumes and claims to make PostgreSQL container’s data persists.
 
-   Create Postgres deployment using the below steps.
+   Create PostgreSQL deployment using the below steps.
 
    ```
    $ kubectl create -f postgres-deployment.yaml 
@@ -147,16 +147,16 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
 
    To access the deployment or container, we need to expose PostgreSQL service. Kubernetes provides different type of services like ClusterIP, NodePort and LoadBalancer.
 
-   Create Postgres Service using the following step.
+   Create PostgreSQL Service using the following step.
 
    ```
    $ kubectl create -f postgres-service.yaml 
    service "postgres" created
    ```
 
-* **Get Connection Details for Postgres DB**
+* **Get Connection Details for PostgreSQL Database**
 
-   * ***Get port of Postgre***
+   * ***Get port of PostgreSQL***
    
       To get port number, run command as:
       
@@ -165,7 +165,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
       NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
       postgres   NodePort   *.**7.*1.*53   <none>        5432:31070/TCP   5m
       ```
-      Here, 31070 is external port number for PostgreSQL service running on kubernetes cluster.
+      Here, 31070 is external port number for PostgreSQL service running on Kubernetes cluster.
 
    * ***Get the public IP for Kubernetes Cluster***
  
@@ -179,7 +179,7 @@ To Deploy PostgreSQL on Kubernetes, ensure you are able to run `kubectl` command
         
         Make a note of this public IP.
  
-   * ***Connection details of PostgresDB***
+   * ***Connection details of PostgreSQL Database***
    
       This port number and cluster public ip will be used as db connection details further in `step 5`.
 
@@ -190,11 +190,11 @@ After setting up fabric network and PostgreSQL DB as mentioned above, perform th
 
 * Replace ```server/config/connection-profile.json``` with your fabric network connection profile which was downloaded in `step 3`.
 
-* Replace your PostgreSQL credentials in ```server/config/postgres-config.json```. In case of containerised Postgres DB, replace IP and port in this json file. And in case of IBM Cloud PostgreSQL service, replace the json file content with your PostgreSQL credentials.
+* Replace your PostgreSQL credentials in ```server/config/postgres-config.json```. In case of containerized PostgreSQL database, replace IP and port in this json file. And in case of IBM Cloud PostgreSQL service, replace the json file content with your PostgreSQL credentials.
   
 ## 6. Run the application
 
-Choose the mode of deployment and perform the steps.
+Choose the mode of deployment (local or on IBM Cloud) and perform the steps.
 
 **Deploy node app locally**
 
@@ -222,9 +222,9 @@ After running application, we can see swagger UI as below:
 
 ![swagger](images/swagger.PNG)
 
-This Fabric postgres wallet provide following APIs:
+This Fabric PostgreSQL wallet provide following APIs:
 
-* **POST user API** - This API is used for registering and enrolling user to blockchain fabric network. Once user is registered certificate is stored to Postgre wallet. Need to do the following changes to request body in order to register user to blockchain network:
+* **POST user API** - This API is used for registering and enrolling user to blockchain fabric network. Once user is registered certificate is stored to PostgreSQL wallet. Need to do the following changes to request body in order to register user to blockchain network:
 ```
    org - should be mapped to your network org name. 
    user - user name you wish to register
