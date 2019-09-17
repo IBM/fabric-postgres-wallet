@@ -1,12 +1,12 @@
 # Short Title
 
-Demonstrate the methodology to use Postgre SQL Database as a Fabric Wallet using Fabric Node SDK
+Use a PostgreSQL database as a Hyperledger Fabric wallet using Fabric Node SDK
 
 
 
 # Long Title
 
-Setup PostgreSQL containerized using Kubernetes and configure as Hyperledger Fabric Wallet
+Setup containerized PostgreSQL database using Kubernetes and configure it as Hyperledger Fabric Wallet
 
 
 # Author
@@ -31,7 +31,7 @@ NA
 
 # Summary
 
-Hyperledger Fabric uses appropriate enrollment certificates while interacting with the blockchain network. The Hyperledger Fabric SDK for Node.js provides APIs to interact with a Hyperledger Fabric blockchain. Fabric Node SDK provides default file-system wallet for storing fabric certificate. File system wallet stores user certificate in folders. This approach does not provide required security, flexibility and also impacts scalability. Explore this pattern further to understand how to use PostgreSQL DB as Fabric wallet.
+Hyperledger Fabric uses appropriate enrollment certificates while interacting with the blockchain network. The Hyperledger Fabric SDK for Node.js provides APIs to interact with a Hyperledger Fabric blockchain. The Fabric Node SDK provides a default file system wallet for storing Fabric certificates. The file system wallet stores user certificate in folders. This approach does not provide the required security or flexibility, and it also affects scalability. Explore this pattern further to understand how to use a PostgreSQL database as a Fabric wallet.
 
 # Technologies
 
@@ -59,9 +59,9 @@ In this code pattern we use IBM Blockchain Platform to setup the fabric network,
 
 
 * Hyperledger Fabric network is setup using IBM Blockchain Platform.
-* Configure and deploy containerised Postgre SQL database using Kubernetes.
+* Configure and deploy a containerized PostgreSQL database using Kubernetes.
 * Deploy the client application using Fabric SDK for Node.js through which user can communicate with blockchain network.
-* To comunicate with blockchain network, users need to register and enroll with the network which will generate enrollment certificates and store in PostgreSQL DB. These certificates will be used further for communication with the network.
+* To communicate with the blockchain network, users need to register and enroll with the network which will generate the enrollment certificates and store them in a PostgreSQL database. These certificates will be used for further communication with the network.
 
 
 # Instructions
