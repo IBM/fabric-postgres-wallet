@@ -1,7 +1,7 @@
 
 # Use a PostgreSQL database as a Hyperledger Fabric wallet using Fabric Node SDK
 
-## Set up a containerized PostgreSQL database using Kubernetes and configure it as a Hyperledger Fabric wallet
+> Set up a containerized PostgreSQL database using Kubernetes and configure it as a Hyperledger Fabric wallet
 
 Hyperledger Fabric is one of the blockchain projects within Hyperledger. It is private and permissioned; security on the Hyperledger Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrolment certificates. Once user is enrolled, Node js application persists certificate in wallet for future usages.
 
